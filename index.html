@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>To the Power of Math!</title>
+    <!-- External styles and fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Styling for the client UI -->
+    <style>
+        body {
+            background: linear-gradient(to right, #ff5fb7, #d27bfe);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #FFFFFF;
+            position: relative;
+        }
+        .container {
+            background-color: #343a40;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            text-align: center;
+            width: 400px;
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            color: #00ffee;
+            font-family: 'Pacifico', cursive;
+            margin-bottom: 30px;
+            font-size: 36px;
+        }
+        label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+        input {
+            border: 2px solid #FFD700;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 100%;
+        }
+        button {
+            background-color: #00ff6e;
+            border: none;
+            border-radius: 5px;
+            color: #343a40;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #e6be0a;
+        }
+        .cartoon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 100px;
+            color: #FFD700;
+        }
+        .cartoon-left {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 100px;
+            color: #FFD700;
+        }
+    </style>
+    <script>
+        // callAPI function that takes the base and exponent numbers as parameters
+        var callAPI = (base, exponent) => {
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({ "base": base, "exponent": exponent });
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://2pvjfh5925.execute-api.us-east-1.amazonaws.com/Dev", requestOptions)
+                .then(response => response.text())
+                .then(result => alert(JSON.parse(result).body))
+                .catch(error => console.log('error', error));
+        }
+    </script>
+</head>
+<body>
+    <i class="fas fa-calculator cartoon"></i>
+    <i class="fas fa-brain cartoon-left"></i>
+    <div class="container">
+        <h1>TO THE POWER OF MATH!</h1>
+        <form>
+            <label for="base">Base number:</label>
+            <input type="text" id="base" placeholder="Enter base number">
+            <label for="exponent">...to the power of:</label>
+            <input type="text" id="exponent" placeholder="Enter exponent">
+            <!-- set button onClick method to call function we defined passing input values as parameters -->
+            <button type="button" onclick="callAPI(document.getElementById('base').value, document.getElementById('exponent').value)">CALCULATE</button>
+        </form>
+    </div>
+</body>
+</html>
