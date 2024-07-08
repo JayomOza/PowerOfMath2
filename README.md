@@ -19,6 +19,7 @@ PowerOfMath2 ties together various AWS services to create an end-to-end web appl
 - **AWS Identity and Access Management (IAM)**: Manages permissions.
 
 ## Setup Instructions
+![The Application Architecture](relative/path/to/image.png)
 
 ### Prerequisites
 
